@@ -6,7 +6,7 @@ ASCII_CHARS = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."]
 # Resize the image to fit the screen
 def resize_image(image, new_width=100):
     width, height = image.size
-    ratio = height / width
+    ratio = height / width / 1.65
     new_height = int(new_width * ratio)
     resized_image = image.resize((new_width, new_height))
     return resized_image
@@ -24,7 +24,7 @@ def pixels_to_ascii(image):
         ascii_str += ASCII_CHARS[pixel_value // 25]
     return ascii_str
 
-def main():
+def main(new_width=100):
     # Attempt to open the image input
     path = input("Enter the path to the image: \n")
     try:
@@ -39,6 +39,13 @@ def main():
     # Format the image data
     pixel_count = len(new_image_data)
     ascii_image = "\n".join(new_image_data[i:(i+new_width)] for i in range(0, pixel_count, new_width))
+    
+    # Print the result
+    print(ascii_image)
 
+    # Save the result to a file txt
+    with open("ascii_image.txt", "w") as f:
+        f.write(ascii_image)
 
+# Run the program
 main()
